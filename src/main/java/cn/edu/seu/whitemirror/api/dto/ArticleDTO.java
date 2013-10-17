@@ -3,6 +3,8 @@
  */
 package cn.edu.seu.whitemirror.api.dto;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
  * @author snow
  *
  */
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ArticleDTO implements Serializable {
 
 	/**

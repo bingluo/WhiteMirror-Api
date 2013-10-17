@@ -3,12 +3,15 @@
  */
 package cn.edu.seu.whitemirror.api.dto;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
 import java.io.Serializable;
 
 /**
  * @author snow
  *
  */
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class UploadedFile implements Serializable {
 
 	/**
