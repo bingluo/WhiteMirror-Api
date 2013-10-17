@@ -23,11 +23,9 @@ public class SectionDTO implements Serializable {
 	
 	private Long id;
 	private String title;
-    private SectionTypeEnum type;
 	private List<ArticleBriefDTO> articleList;
     private Integer categoryId;
     private Integer priority;
-	private String extra;
 
 	/**
 	 * @return the id
@@ -53,18 +51,6 @@ public class SectionDTO implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-    /**
-     * @return the type
-     */
-    public SectionTypeEnum getType() {
-        return type;
-    }
-    /**
-     * @param type the type to set
-     */
-    public void setType(SectionTypeEnum type) {
-        this.type = type;
-    }
 	/**
 	 * @return the articleList
 	 */
@@ -100,17 +86,5 @@ public class SectionDTO implements Serializable {
      */
     public void setPriority(Integer priority) {
         this.priority = priority;
-    }
-    /**
-     * @return the extra
-     */
-    public String getExtra() {
-        return extra;
-    }
-    /**
-     * @param extra the extra to set
-     */
-    public void setExtra(String extra) {
-        this.extra = extra;
     }
 }
