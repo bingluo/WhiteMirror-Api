@@ -32,7 +32,8 @@ public class CategoryClient {
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
             ResponseEntity<List> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, List.class);
-            return (List<CategoryDTO>)responseEntity.getBody();
+            List<CategoryDTO> result = responseEntity.getBody();
+            return result;
         } catch (Exception ex) {
             logger.error("CategoryClient.getCategories, ex: ", ex);
             return null;

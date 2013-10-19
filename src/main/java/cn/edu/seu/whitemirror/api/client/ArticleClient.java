@@ -35,7 +35,8 @@ public class ArticleClient {
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
             ResponseEntity<List> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, List.class);
-            return (List<ArticleBriefDTO>)responseEntity.getBody();
+            List<ArticleBriefDTO> result = responseEntity.getBody();
+            return result;
         } catch (Exception ex) {
             logger.error("Exception in ArticleClient.paginateArticleBriefBySectionId, ex: ", ex);
             return null;
