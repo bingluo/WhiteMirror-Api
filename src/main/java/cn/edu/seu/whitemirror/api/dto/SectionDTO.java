@@ -5,6 +5,7 @@ package cn.edu.seu.whitemirror.api.dto;
 
 import cn.edu.seu.whitemirror.api.enums.SectionTypeEnum;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author snow
  *
  */
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SectionDTO implements Serializable {
 
 	/**
