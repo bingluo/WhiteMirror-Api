@@ -31,10 +31,10 @@ public class SectionClient {
     private final static String BATCH_SECTION_BY_CATEGORY_URL = "sections/batch?needArticleList=%s";
 
     public SectionDTO findSectionBySectionId(Long sectionId) {
-        String requestUrl = restUrl + String.format(sectionId);
+        String requestUrl = restUrl + String.format(SECTION_BY_ID_URL, sectionId);
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
-            ResponseEntity<SectionDTO> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, SectionDTO);
+            ResponseEntity<SectionDTO> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, SectionDTO.class);
             return responseEntity.getBody();
         } catch (Exception ex) {
             logger.error("Exception in SectionClient.findSectionBySectionId, ex: ", ex);
