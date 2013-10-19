@@ -47,7 +47,7 @@ public class SectionClient {
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
             ResponseEntity<List> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, List.class);
-            return responseEntity.getBody();
+            return (List<SectionDTO>)responseEntity.getBody();
         } catch (Exception ex) {
             logger.error("Exception in SectionClient.getSectionsByCategoryId, ex: ", ex);
             return null;
@@ -62,7 +62,7 @@ public class SectionClient {
         HttpEntity<List<Long>> requestEntity = new HttpEntity<List<Long>>(categoryIdList, requestHeaders);
         try {
             ResponseEntity<Map> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, Map.class);
-            return responseEntity.getBody();
+            return (Map<Long, List<SectionDTO>>)responseEntity.getBody();
         } catch (Exception ex) {
             return null;
         }
