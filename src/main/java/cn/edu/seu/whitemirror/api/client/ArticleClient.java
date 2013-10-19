@@ -19,7 +19,7 @@ import java.util.List;
  * Time: 下午12:48
  * To change this template use File | Settings | File Templates.
  */
-@Service
+
 public class ArticleClient {
 
     private Logger logger = LoggerFactory.getLogger(ArticleClient.class);

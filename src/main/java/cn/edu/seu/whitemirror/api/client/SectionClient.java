@@ -18,7 +18,7 @@ import java.util.List;
  * Time: 下午4:43
  * To change this template use File | Settings | File Templates.
  */
-@Service
+
 public class SectionClient {
 
     private Logger logger = LoggerFactory.getLogger(SectionClient.class);
