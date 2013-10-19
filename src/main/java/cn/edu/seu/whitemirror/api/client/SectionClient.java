@@ -30,7 +30,7 @@ public class SectionClient {
 
     private final static String SECTION_URL_BY_CATEGORY = "sections?categoryId=%s&needArticleList=%s";
 
-    public List<SectionDTO> getSectionsByCategoryId(Integer categoryId, Boolean needArticleList) {
+    public List<SectionDTO> getSectionsByCategoryId(Long categoryId, Boolean needArticleList) {
         String requestUrl = restUrl + String.format(SECTION_URL_BY_CATEGORY, categoryId, needArticleList);
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
