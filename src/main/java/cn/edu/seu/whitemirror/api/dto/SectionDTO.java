@@ -4,7 +4,6 @@
 package cn.edu.seu.whitemirror.api.dto;
 
 import cn.edu.seu.whitemirror.api.enums.SectionTypeEnum;
-import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import java.io.Serializable;

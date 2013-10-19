@@ -1,7 +1,5 @@
 package cn.edu.seu.whitemirror.api.enums;
 
-import java.io.Serializable;
-
 /**
  * Created with IntelliJ IDEA.
  * User: snow

@@ -3,7 +3,6 @@
  */
 package cn.edu.seu.whitemirror.api.dto;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import java.io.Serializable;
