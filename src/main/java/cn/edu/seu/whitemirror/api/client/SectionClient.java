@@ -3,6 +3,7 @@ package cn.edu.seu.whitemirror.api.client;
 import cn.edu.seu.whitemirror.api.dto.SectionDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,9 +47,9 @@ public class SectionClient {
         String requestUrl = restUrl + String.format(SECTION_CATEGORY_URL_BY, categoryId, needArticleList);
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
-            ResponseEntity<List> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, List.class);
-            List<SectionDTO> result = responseEntity.getBody();
-            return result;
+            ResponseEntity<List<SectionDTO>> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<SectionDTO>>() {
+            });
+            return responseEntity.getBody();
         } catch (Exception ex) {
             logger.error("Exception in SectionClient.getSectionsByCategoryId, ex: ", ex);
             return null;
@@ -62,9 +63,8 @@ public class SectionClient {
         requestHeaders.add("API-Key", apiKey);
         HttpEntity<List<Long>> requestEntity = new HttpEntity<List<Long>>(categoryIdList, requestHeaders);
         try {
-            ResponseEntity<Map> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, Map.class);
-            Map<Long, List<SectionDTO>> result = responseEntity.getBody();
-            return result;
+            ResponseEntity<Map<Long, List<SectionDTO>>> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<Map<Long, List<SectionDTO>>>() {});
+            return responseEntity.getBody();
         } catch (Exception ex) {
             return null;
         }

@@ -4,6 +4,7 @@ import cn.edu.seu.whitemirror.api.dto.ArticleBriefDTO;
 import cn.edu.seu.whitemirror.api.dto.ArticleDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,9 +35,8 @@ public class ArticleClient {
         String requestUrl = restUrl + String.format(PAGINATE_ARTICLE_LIST_URL, sectionId, pageIndex, pageSize, orderByCreateDate);
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
-            ResponseEntity<List> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, List.class);
-            List<ArticleBriefDTO> result = responseEntity.getBody();
-            return result;
+            ResponseEntity<List<ArticleBriefDTO>> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<ArticleBriefDTO>>(){});
+            return responseEntity.getBody();
         } catch (Exception ex) {
             logger.error("Exception in ArticleClient.paginateArticleBriefBySectionId, ex: ", ex);
             return null;

@@ -3,6 +3,7 @@ package cn.edu.seu.whitemirror.api.client;
 import cn.edu.seu.whitemirror.api.dto.CategoryDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,8 @@ public class CategoryClient {
         String requestUrl = restUrl + CATEGORY_URL;
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
-            ResponseEntity<List> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, List.class);
-            List<CategoryDTO> result = responseEntity.getBody();
-            return result;
+            ResponseEntity<List<CategoryDTO>> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<CategoryDTO>>() {});
+            return responseEntity.getBody();
         } catch (Exception ex) {
             logger.error("CategoryClient.getCategories, ex: ", ex);
             return null;
