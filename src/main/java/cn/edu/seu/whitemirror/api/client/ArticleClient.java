@@ -37,12 +37,8 @@ public class ArticleClient {
         String requestUrl = restUrl + String.format(PAGINATE_ARTICLE_LIST_URL, sectionId, pageIndex, pageSize, orderByCreateDate);
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
-            ResponseEntity<ArticleBriefDTO[]> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, ArticleBriefDTO[].class);
-            ArticleBriefDTO[] articleBriefDTOs = responseEntity.getBody();
-            if (articleBriefDTOs == null) {
-                return null;
-            }
-            return Arrays.asList(articleBriefDTOs);
+            ResponseEntity<List> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, List.class);
+            return responseEntity.getBody();
         } catch (Exception ex) {
             logger.error("Exception in ArticleClient.paginateArticleBriefBySectionId, ex: ", ex);
             return null;

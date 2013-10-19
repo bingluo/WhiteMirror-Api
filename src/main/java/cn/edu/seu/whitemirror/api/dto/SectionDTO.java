@@ -25,7 +25,7 @@ public class SectionDTO implements Serializable {
 	private String title;
     private SectionTypeEnum type;
 	private List<ArticleBriefDTO> articleList;
-    private Integer categoryId;
+    private Long categoryId;
     private Integer priority;
 	private String extra;
 
@@ -80,13 +80,13 @@ public class SectionDTO implements Serializable {
     /**
      * @return categoryId
      */
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
     /**
      * @param categoryId the categoryId to set
      */
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
     /**
