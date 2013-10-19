@@ -3,13 +3,11 @@ package cn.edu.seu.whitemirror.api.client;
 import cn.edu.seu.whitemirror.api.dto.SectionDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,16 +26,44 @@ public class SectionClient {
     private String restUrl;
     private String apiKey;
 
-    private final static String SECTION_URL_BY_CATEGORY = "sections?categoryId=%s&needArticleList=%s";
+    private final static String SECTION_BY_ID_URL = "sections/%s";
+    private final static String SECTION_CATEGORY_URL_BY = "sections?categoryId=%s&needArticleList=%s";
+    private final static String BATCH_SECTION_BY_CATEGORY_URL = "sections/batch?needArticleList=%s";
+
+    public SectionDTO findSectionBySectionId(Long sectionId) {
+        String requestUrl = restUrl + String.format(sectionId);
+        HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
+        try {
+            ResponseEntity<SectionDTO> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, SectionDTO);
+            return responseEntity.getBody();
+        } catch (Exception ex) {
+            logger.error("Exception in SectionClient.findSectionBySectionId, ex: ", ex);
+            return null;
+        }
+    }
 
     public List<SectionDTO> getSectionsByCategoryId(Long categoryId, Boolean needArticleList) {
-        String requestUrl = restUrl + String.format(SECTION_URL_BY_CATEGORY, categoryId, needArticleList);
+        String requestUrl = restUrl + String.format(SECTION_CATEGORY_URL_BY, categoryId, needArticleList);
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
             ResponseEntity<List> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, List.class);
             return responseEntity.getBody();
         } catch (Exception ex) {
             logger.error("Exception in SectionClient.getSectionsByCategoryId, ex: ", ex);
+            return null;
+        }
+    }
+
+    public Map<Long, List<SectionDTO>> batchSectionsByCategoryIdList(List<Long> categoryIdList, Boolean needArticleList) {
+        String requestUrl = restUrl + String.format(BATCH_SECTION_BY_CATEGORY_URL, needArticleList);
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.setContentType(new MediaType("application", "json"));
+        requestHeaders.add("API-Key", apiKey);
+        HttpEntity<List<Long>> requestEntity = new HttpEntity<List<Long>>(categoryIdList, requestHeaders);
+        try {
+            ResponseEntity<Map> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, Map.class);
+            return responseEntity.getBody();
+        } catch (Exception ex) {
             return null;
         }
     }

@@ -4,12 +4,9 @@ import cn.edu.seu.whitemirror.api.dto.ArticleBriefDTO;
 import cn.edu.seu.whitemirror.api.dto.ArticleDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,7 +28,7 @@ public class ArticleClient {
 
     private static final String PAGINATE_ARTICLE_LIST_URL = "sections/%s/articles?pageIndex=%s&pageSize=%s&orderByCreateDate=%s";
     private static final String ARTICLE_URL = "sections/%s/articles/%s";
-    private static final String COUNT_ARTICLE = "sections/%s/articles/count";
+    private static final String COUNT_ARTICLE_URL = "sections/%s/articles/count";
 
     public List<ArticleBriefDTO> paginateArticleBriefBySectionId(Long sectionId, Integer pageIndex, Integer pageSize, Boolean orderByCreateDate) {
         String requestUrl = restUrl + String.format(PAGINATE_ARTICLE_LIST_URL, sectionId, pageIndex, pageSize, orderByCreateDate);
@@ -58,7 +55,7 @@ public class ArticleClient {
     }
 
     public Integer countArticleBySectionId(Long sectionId) {
-        String requestUrl = restUrl + String.format(COUNT_ARTICLE, sectionId);
+        String requestUrl = restUrl + String.format(COUNT_ARTICLE_URL, sectionId);
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
             ResponseEntity<Integer> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, Integer.class);
