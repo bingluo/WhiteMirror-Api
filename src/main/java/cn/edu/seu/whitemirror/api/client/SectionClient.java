@@ -29,7 +29,7 @@ public class SectionClient {
 
     private final static String SECTION_BY_ID_URL = "sections/%s";
     private final static String SECTION_CATEGORY_URL_BY = "sections?categoryId=%s&needArticleList=%s";
-    private final static String BATCH_SECTION_BY_CATEGORY_URL = "sections/batch?needArticleList=%s";
+    private final static String BATCH_SECTION_BY_CATEGORY_URL = "sections/batch_by_category?needArticleList=%s";
 
     public SectionDTO findSectionBySectionId(Long sectionId) {
         String requestUrl = restUrl + String.format(SECTION_BY_ID_URL, sectionId);
