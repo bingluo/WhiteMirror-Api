@@ -58,7 +58,7 @@ public class SectionClient {
 
     public Map<Long, List<SectionDTO>> batchSectionsByCategoryIdList(List<Long> categoryIdList, Boolean needArticleList) {
         StringBuilder queryString = new StringBuilder();
-        queryString.append('?');
+        queryString.append('&');
         for (Long categoryId : categoryIdList) {
             queryString.append("categoryId=").append(categoryId).append('&');
         }
