@@ -57,11 +57,13 @@ public class SectionClient {
     }
 
     public Map<Long, List<SectionDTO>> batchSectionsByCategoryIdList(List<Long> categoryIdList, Boolean needArticleList) {
-        String requestUrl = restUrl + String.format(BATCH_SECTION_BY_CATEGORY_URL, needArticleList);
-        HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.setContentType(new MediaType("application", "json"));
-        requestHeaders.add("API-Key", apiKey);
-        HttpEntity<List<Long>> requestEntity = new HttpEntity<List<Long>>(categoryIdList, requestHeaders);
+        StringBuilder queryString = new StringBuilder();
+        queryString.append('?');
+        for (Long categoryId : categoryIdList) {
+            queryString.append("categoryId=").append(categoryId).append('&');
+        }
+        String requestUrl = restUrl + String.format(BATCH_SECTION_BY_CATEGORY_URL, needArticleList) + queryString;
+        HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
         try {
             ResponseEntity<Map<Long, List<SectionDTO>>> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<Map<Long, List<SectionDTO>>>() {});
             return responseEntity.getBody();
