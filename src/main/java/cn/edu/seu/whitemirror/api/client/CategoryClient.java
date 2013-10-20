@@ -28,6 +28,8 @@ public class CategoryClient {
     private String apiKey;
 
     private static final String CATEGORY_URL = "categories";
+    private static final String CATEGORY_BY_ID_URL = "categories/%s";
+
     public List<CategoryDTO> getCategories() {
         String requestUrl = restUrl + CATEGORY_URL;
         HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
@@ -36,6 +38,18 @@ public class CategoryClient {
             return responseEntity.getBody();
         } catch (Exception ex) {
             logger.error("CategoryClient.getCategories, ex: ", ex);
+            return null;
+        }
+    }
+
+    public CategoryDTO findCategoryByCategoryId(Long categoryId) {
+        String requestUrl = restUrl + String.format(CATEGORY_BY_ID_URL, categoryId);
+        HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(apiKey);
+        try {
+            ResponseEntity<CategoryDTO> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, CategoryDTO.class);
+            return responseEntity.getBody();
+        } catch (Exception ex) {
+            logger.error("CategoryClient.findCategoryByCategoryId, ex: ", ex);
             return null;
         }
     }
