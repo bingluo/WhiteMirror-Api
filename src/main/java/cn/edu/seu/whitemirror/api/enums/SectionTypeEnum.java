@@ -11,7 +11,8 @@ package cn.edu.seu.whitemirror.api.enums;
 public enum SectionTypeEnum {
 
     Standard(0),
-    ExternalLink(1);
+    ExternalLink(1),
+    Exclusive(2);
 
     private int value = 0;
 
@@ -21,15 +22,16 @@ public enum SectionTypeEnum {
 
     public static SectionTypeEnum valueOf(int value) {
         switch (value) {
-            case 1:
+            case 0:
                 return Standard;
-            case 2:
+            case 1:
                 return ExternalLink;
+            case 2:
+                return Exclusive;
             default:
                 return null;
         }
     }
-
     public int value() {
         return this.value;
     }

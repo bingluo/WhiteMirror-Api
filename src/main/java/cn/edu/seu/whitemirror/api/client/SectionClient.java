@@ -68,6 +68,7 @@ public class SectionClient {
             ResponseEntity<Map<Long, List<SectionDTO>>> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<Map<Long, List<SectionDTO>>>() {});
             return responseEntity.getBody();
         } catch (Exception ex) {
+            logger.error("Exception in SectionClient.batchSectionsByCategoryIdList, ex: ", ex);
             return null;
         }
     }
