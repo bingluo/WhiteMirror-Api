@@ -21,7 +21,6 @@ public class ArticleBriefDTO implements Serializable  {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private Long sectionId;
 	private String title;
 	private String author;
 	private Date createDate;
@@ -37,18 +36,6 @@ public class ArticleBriefDTO implements Serializable  {
 	 */
 	public void setId(Long id) {
 		this.id = id;
-	}
-	/**
-	 * @return the sectionId
-	 */
-	public Long getSectionId() {
-		return sectionId;
-	}
-	/**
-	 * @param sectionId the sectionId to set
-	 */
-	public void setSectionId(Long sectionId) {
-		this.sectionId = sectionId;
 	}
 	/**
 	 * @return the title

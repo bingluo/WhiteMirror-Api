@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class CategoryClient {
 
-    private Logger logger = LoggerFactory.getLogger(CategoryClient.class);
+    private static Logger logger = LoggerFactory.getLogger(CategoryClient.class);
 
     private RestTemplate restTemplate;
 

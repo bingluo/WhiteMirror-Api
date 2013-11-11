@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class UserClient {
 
-    private Logger logger = LoggerFactory.getLogger(UserClient.class);
+    private static Logger logger = LoggerFactory.getLogger(UserClient.class);
 
     private static final String AUTH_URL = "auth?username=%s";
 

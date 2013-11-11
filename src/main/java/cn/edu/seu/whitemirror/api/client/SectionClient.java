@@ -7,6 +7,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ import java.util.Map;
 
 public class SectionClient {
 
-    private Logger logger = LoggerFactory.getLogger(SectionClient.class);
+    private static Logger logger = LoggerFactory.getLogger(SectionClient.class);
 
     private RestTemplate restTemplate;
 
@@ -30,6 +31,9 @@ public class SectionClient {
     private final static String SECTION_BY_ID_URL = "sections/%s";
     private final static String SECTION_CATEGORY_URL_BY = "sections?categoryId=%s&needArticleList=%s";
     private final static String BATCH_SECTION_BY_CATEGORY_URL = "sections/batch_by_category?needArticleList=%s";
+    private final static String ADD_SECTION_URL = "sections";
+    private final static String UPDATE_SECTION_URL = "sections/%s";
+    private final static String DELETE_SECTION_URL = "sections/%s";
 
     public SectionDTO findSectionBySectionId(Long sectionId) {
         String requestUrl = restUrl + String.format(SECTION_BY_ID_URL, sectionId);
@@ -69,6 +73,43 @@ public class SectionClient {
             return responseEntity.getBody();
         } catch (Exception ex) {
             logger.error("Exception in SectionClient.batchSectionsByCategoryIdList, ex: ", ex);
+            return null;
+        }
+    }
+
+    public SectionDTO addSection(SectionDTO sectionDTO) {
+        String requestUrl = restUrl + ADD_SECTION_URL;
+        HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(sectionDTO, apiKey);
+        try {
+            ResponseEntity<SectionDTO> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.POST, requestEntity, SectionDTO.class);
+            URI redirectURI = responseEntity.getHeaders().getLocation();
+            return restTemplate.exchange(redirectURI, HttpMethod.GET, requestEntity, SectionDTO.class).getBody();
+        } catch (Exception ex) {
+            logger.error("Exception in SectionClient.addSection, ex: ", ex);
+            return null;
+        }
+    }
+
+    public SectionDTO updateSection(Long sectionId, SectionDTO sectionDTO) {
+        String requestUrl = restUrl + String.format(UPDATE_SECTION_URL, sectionId);
+        HttpEntity<?> requestEntity = ClientHelper.getRequestEntity(sectionDTO, apiKey);
+        try {
+            ResponseEntity<SectionDTO> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.PUT, requestEntity, SectionDTO.class);
+            return responseEntity.getBody();
+        } catch (Exception ex) {
+            logger.error("Exception in SectionClient.updateSection, ex: ", ex);
+            return null;
+        }
+    }
+
+    public String deleteSection(Long sectionId) {
+        String requestUrl = restUrl + String.format(DELETE_SECTION_URL, sectionId);
+        HttpEntity<?> requestEntity = ClientHelper.getRequestEntityAcceptTextPlain(apiKey);
+        try {
+            ResponseEntity<String> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.DELETE, requestEntity, String.class);
+            return responseEntity.getBody();
+        } catch (Exception ex) {
+            logger.error("Exception in SectionClient.deleteSection, ex: ", ex);
             return null;
         }
     }
